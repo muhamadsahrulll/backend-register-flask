@@ -45,6 +45,18 @@ def register():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route("/registrations", methods=["GET"])
+def get_registrations():
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id, name, email, address FROM registrations")
+    rows = cursor.fetchall()
+    cursor.close()
+    data = [
+        {"id": row[0], "name": row[1], "email": row[2], "address": row[3]}
+        for row in rows
+    ]
+    return jsonify(data)
 
 @app.route('/')
 def home():
