@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 # Muat variabel dari file .env
@@ -11,3 +12,4 @@ class Config:
     MYSQL_DB = os.environ.get("MYSQL_DB", "registration")
     EMAIL_SENDER = os.environ.get("EMAIL_SENDER")
     EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
