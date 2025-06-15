@@ -1,9 +1,13 @@
 import os
-import mysql.connector
+from dotenv import load_dotenv
 
-db = mysql.connector.connect(
-    host=os.environ.get("DB_HOST"),
-    user=os.environ.get("DB_USER"),
-    password=os.environ.get("DB_PASS"),
-    database=os.environ.get("DB_NAME")
-)
+# Muat variabel dari file .env
+load_dotenv()
+
+class Config:
+    MYSQL_HOST = os.environ.get("MYSQL_HOST", "localhost")
+    MYSQL_USER = os.environ.get("MYSQL_USER", "root")
+    MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD", "")
+    MYSQL_DB = os.environ.get("MYSQL_DB", "registration")
+    EMAIL_SENDER = os.environ.get("EMAIL_SENDER")
+    EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")

@@ -4,6 +4,7 @@ from flask_cors import CORS
 from email_validator import validate_email, EmailNotValidError
 from config import Config
 from utils.email_sender import send_email
+import re
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -22,11 +23,17 @@ def register():
     if not name or not email or not address:
         return jsonify({"error": "Semua field wajib diisi"}), 400
 
+    # Validasi panjang dan karakter
+    if len(name) > 100 or not re.match(r"^[a-zA-Z\s.'-]+$", name):
+        return jsonify({"error": "Nama tidak valid"}), 400
+    if len(address) > 200:
+        return jsonify({"error": "Alamat terlalu panjang"}), 400
+
     # Validasi email format
     try:
         validate_email(email)
     except EmailNotValidError as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"error": "Email tidak valid"}), 400
 
     # Simpan ke database
     try:
