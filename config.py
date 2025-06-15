@@ -1,9 +1,7 @@
 import os
-import mysql.connector
 
-db = mysql.connector.connect(
-    host=os.environ.get("DB_HOST"),
-    user=os.environ.get("DB_USER"),
-    password=os.environ.get("DB_PASS"),
-    database=os.environ.get("DB_NAME")
-)
+class Config:
+    MYSQL_HOST = os.environ.get("DB_HOST", "localhost")
+    MYSQL_USER = os.environ.get("DB_USER", "root")
+    MYSQL_PASSWORD = os.environ.get("DB_PASSWORD", "")
+    MYSQL_DB = os.environ.get("DB_NAME", "nama_database")
